@@ -1,0 +1,17 @@
+
+FROM ghcr.io/astral-sh/uv:alpine
+
+WORKDIR /app
+
+COPY pyproject.toml .
+COPY uv.lock .
+
+COPY app.py .
+
+RUN uv sync --locked
+
+RUN apk update && apk add curl
+
+HEALTHCHECK --start-period=10s --start-interval=0.5s --interval=0.5s CMD curl -f 127.0.0.1:8080 || exit 1
+
+CMD ["uv", "run", "app.py"]

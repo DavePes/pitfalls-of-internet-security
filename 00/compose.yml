@@ -1,0 +1,20 @@
+services:
+  web:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Containerfile
+    networks:
+      default:
+        ipv4_address: 172.24.0.2
+
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      isolate: "false"
+    ipam:
+      config:
+        - subnet: 172.24.0.0/24
+          gateway: 172.24.0.1
