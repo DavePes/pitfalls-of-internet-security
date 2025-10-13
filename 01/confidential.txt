@@ -1,0 +1,7 @@
+Congratulations on breaking confidentiality!
+
+Here would otherwise be some real secret, like the admin's password :)
+
+But in our case it's just the the confidentiality flag instead :)
+
+FLAG: pitfalls{fake_flag}

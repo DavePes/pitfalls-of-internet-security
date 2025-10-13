@@ -1,0 +1,28 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Containerfile
+    environment:
+      - SESSION_TIMEOUT=86400
+      - DISABLE_AUTO_CLEANUP=false
+    env_file: .env
+    volumes:
+      - sessions:/app/sessions
+    restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 172.24.1.2
+
+volumes:
+  sessions:
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      isolate: "false"
+    ipam:
+      config:
+        - subnet: 172.24.1.0/24
+          gateway: 172.24.1.1

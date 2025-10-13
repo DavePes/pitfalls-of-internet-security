@@ -1,0 +1,22 @@
+{% extends 'layout.html' %} {% block content %}
+<h1 class="title">Notes</h1>
+<a href="{{ url_for('create') }}" class="button is-primary">Create Note</a>
+<hr />
+{% for note in notes %}
+<div class="box">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong
+            ><a href="{{ url_for('note', filename=note.filename) }}"
+              >{{ note.title }}</a
+            ></strong
+          >
+          <small>{{ note.author }}</small>
+        </p>
+      </div>
+    </div>
+  </article>
+</div>
+{% endfor %} {% endblock %}
