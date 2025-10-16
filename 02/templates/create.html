@@ -1,0 +1,36 @@
+{% extends 'layout.html' %} {% block content %}
+<h1 class="title">Create a New Course</h1>
+<form method="post">
+    <div class="field">
+        <label class="label">Code</label>
+        <div class="control">
+            <input class="input" type="text" name="code" required>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+            <input class="input" type="text" name="name" required>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Syllabus</label>
+        <div class="control">
+            <textarea class="textarea" name="sylabus" required></textarea>
+        </div>
+    </div>
+    
+    <div class="field">
+        <label class="label">Private Note</label>
+        <div class="control">
+            <textarea class="textarea" name="private_note" required></textarea>
+        </div>
+    </div>
+    
+    <div class="field">
+        <div class="control">
+            <button class="button is-primary">Create</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

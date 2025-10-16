@@ -1,0 +1,31 @@
+{% extends 'layout.html' %} {% block content %}
+<h1 class="title">MFF CUNI Course Catalogue</h1>
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages
+%} {% for category, message in messages %}
+<div class="notification is-{{ category }}">{{ message }}</div>
+{% endfor %} {% endif %} {% endwith %}
+<a href="{{ url_for('create') }}" class="button is-primary">Create Course</a>
+<hr />
+{% for course in courses %}
+<div class="box">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>
+            <a href="{{ url_for('course', course_code=course.code) }}"
+              >{{ course.name }}</a
+            >
+          </strong>
+          <small>{{ course.code }}</small>
+        </p>
+      </div>
+    </div>
+    <div class="media-right">
+      <a href="{{ url_for('login', course_code=course.code) }}" class="button"
+        >Login</a
+      >
+    </div>
+  </article>
+</div>
+{% endfor %} {% endblock %}
