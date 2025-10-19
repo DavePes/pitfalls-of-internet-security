@@ -14,11 +14,13 @@ from argon2 import PasswordHasher
 ph = PasswordHasher()
 
 app = Flask(__name__)
-app.secret_key = (
-    os.environ.get("SECRET_KEY", "").encode()
-    if os.environ.get("SECRET_KEY")
-    else get_random_bytes(32)
-)
+# app.secret_key = (
+#     os.environ.get("SECRET_KEY", "").encode()
+#     if os.environ.get("SECRET_KEY")
+#     else get_random_bytes(32)
+# )
+app.secret_key = b"ABCdef123#@!XYZabc456$%^7890QWER"
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
 Base = declarative_base()
 
@@ -185,7 +187,7 @@ def login(course_code: str):
         resp = redirect(url_for("course", course_code=course_code))
         resp.set_cookie("session", encrypt_cookie(course_code))
         return resp
-
+    
     return render_template("login.html", course=course)
 
 
