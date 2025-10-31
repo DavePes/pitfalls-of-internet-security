@@ -1,0 +1,14 @@
+FROM ghcr.io/astral-sh/uv:alpine
+
+RUN apk add build-base libffi-dev
+
+WORKDIR /app
+
+COPY pyproject.toml .
+COPY uv.lock .
+
+RUN uv sync --locked
+
+COPY ./handler.py .
+
+CMD ["uv", "run", "rq", "worker", "--url", "redis://redis"]

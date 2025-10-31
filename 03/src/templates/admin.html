@@ -1,0 +1,65 @@
+{% extends 'layout.html' %} {% block content %}
+<h1 class="title">Admin Panel</h1>
+<p class="subtitle">Filter and manage posts</p>
+
+<div class="box">
+    <form method="get">
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input
+                    class="input"
+                    type="text"
+                    name="filter"
+                    placeholder="Enter filters to query the posts..."
+                    value="{{ filter_query }}"
+                />
+            </div>
+            <div class="control">
+                <button class="button is-info">Filter</button>
+            </div>
+        </div>
+    </form>
+    <p class="help">
+        Try <i>author="Alice"</i> to show posts by Alice,
+        <i>author="Alice" OR author="Bob"</i> to show posts by Alice or Bob,
+        <i>author="Alice" AND content LIKE "%great%"</i> to show all posts from
+        Alice containing the word "great".
+    </p>
+</div>
+
+<hr />
+
+{% if posts %} {% for post in posts %}
+<div class="box">
+    <article class="media">
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong
+                        >{{ post[1] if post is sequence else post.author
+                        }}</strong
+                    >
+                    <small
+                        >{{ post[3] if post is sequence else post.created_at
+                        }}</small
+                    >
+                </p>
+                <p>
+                    {{ (post[2] if post is sequence else post.content) |
+                    truncate(100) | safe }}
+                </p>
+            </div>
+            <a
+                href="{{ url_for('post_detail', post_id=(post[0] if post is sequence else post.id)) }}"
+                class="button is-small"
+                >View full post</a
+            >
+        </div>
+    </article>
+</div>
+{% endfor %} {% else %}
+<div class="notification is-info">No posts found matching your filter.</div>
+{% endif %}
+
+<a href="{{ url_for('index') }}" class="button">Back to home</a>
+{% endblock %}

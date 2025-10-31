@@ -1,0 +1,28 @@
+{% extends 'layout.html' %} {% block content %}
+<h1 class="title">Login</h1>
+<form method="post">
+    <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+            <input class="input" type="text" name="username" required />
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+            <input class="input" type="password" name="password" required />
+        </div>
+    </div>
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-primary">Login</button>
+        </div>
+        <div class="control">
+            <a class="button is-light" href="{{ url_for('index') }}">Cancel</a>
+        </div>
+    </div>
+</form>
+<p class="mt-4">
+    Don't have an account? <a href="{{ url_for('register') }}">Register here</a>
+</p>
+{% endblock %}

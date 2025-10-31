@@ -1,0 +1,75 @@
+{% extends 'layout.html' %} {% block content %}
+<h1 class="title">Náměstí</h1>
+<p class="subtitle">A simple microblogging platform</p>
+
+<div class="box">
+    <form method="post" action="{{ url_for('create_post') }}">
+        <div class="field">
+            <label class="label">Author</label>
+            <div class="control">
+                <input
+                    class="input"
+                    type="text"
+                    value="{{ current_username if current_username is not none else 'Please sign to post a message.' }}"
+                    disabled
+                />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Content</label>
+            <div class="control">
+                <textarea
+                    class="textarea"
+                    name="content"
+                    placeholder="Say something... You can use HTML formatting, like <b>, <i>, etc."
+                    {% if current_username is none %}disabled{% endif %}
+                    required
+                ></textarea>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button class="button is-primary" {% if current_username is none %}disabled{% endif %}>Post</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<hr />
+
+{% for post in posts %}
+<div class="box">
+    <article class="media">
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>{{ post.author }}</strong>
+                    <small>{{ post.created_at }}</small>
+                </p>
+                <p>{{ post.content | safe }}</p>
+            </div>
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <a
+                        class="level-item button is-small"
+                        href="{{ url_for('post_detail', post_id=post.id) }}"
+                        >Open</a
+                    >
+                    <form
+                        method="post"
+                        action="{{ url_for('report_post', post_id=post.id) }}"
+                        style="display: inline-block; margin-left: 0.5rem"
+                    >
+                        <button
+                            class="button is-warning is-small"
+                            type="submit"
+                        >
+                            Report to admin
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </article>
+</div>
+{% endfor %} {% endblock %}

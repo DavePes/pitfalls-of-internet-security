@@ -1,0 +1,27 @@
+{% extends 'layout.html' %} {% block content %}
+<h1 class="title">Post Details</h1>
+
+<div class="box">
+    <article class="media">
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>{{ post.author }}</strong>
+                    <small>{{ post.created_at }}</small>
+                </p>
+                <p>{{ post.content | safe }}</p>
+            </div>
+        </div>
+    </article>
+</div>
+
+<a href="{{ url_for('index') }}" class="button">Back to posts</a>
+
+<form
+    method="post"
+    action="{{ url_for('report_post', post_id=post.id) }}"
+    style="display: inline-block; margin-left: 0.5rem"
+>
+    <button class="button is-warning" type="submit">Report to admin</button>
+</form>
+{% endblock %}

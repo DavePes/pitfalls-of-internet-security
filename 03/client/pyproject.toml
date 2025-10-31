@@ -1,0 +1,10 @@
+[project]
+name = "client"
+version = "0.1.0"
+description = "Admin bot client"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "selenium>=4.38.0",
+    "rq>=2.6.0",
+]
