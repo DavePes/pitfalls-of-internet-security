@@ -217,18 +217,19 @@ def admin_panel():
     _ = require_admin()
 
     filter_query = request.args.get("filter", "")
+    try:
+        # Sanitize filter
+        filter_query = re.sub(r"flag", "", filter_query, flags=re.IGNORECASE)
+        if filter_query:
+            sql = f"SELECT * FROM posts WHERE {filter_query}"
+            result = db.session.execute(db.text(sql))
+            posts = result.fetchall()
+        else:
+            posts = db.session.query(Post).order_by(Post.created_at.desc()).all()
 
-    # Sanitize filter
-    filter_query = re.sub(r"flag", "", filter_query, flags=re.IGNORECASE)
-
-    if filter_query:
-        sql = f"SELECT * FROM posts WHERE {filter_query}"
-        result = db.session.execute(db.text(sql))
-        posts = result.fetchall()
-    else:
-        posts = db.session.query(Post).order_by(Post.created_at.desc()).all()
-
-    return render_template("admin.html", posts=posts, filter_query=filter_query)
+        return render_template("admin.html", posts=posts, filter_query=filter_query)
+    except Exception as e:
+        print(f"Error in admin_panel: {e}")
 
 
 @app.route("/health")
