@@ -1,0 +1,92 @@
+{% extends 'layout.html' %} {% block title %}{{ view_user.username }}'s Personal
+Space{% endblock %} {% block content %}
+<div class="columns is-centered">
+  <div class="column is-8">
+    <div class="box">
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <div>
+              <h1 class="title">
+                {% if view_user.username == current_user.username %} Your
+                Personal Space {% else %} {{ view_user.username }}'s Personal
+                Space {% endif %}
+              </h1>
+              <p class="subtitle is-6">
+                {% if view_user.username == current_user.username %} A private
+                sanctuary for your thoughts {% else %}
+                <span class="tag is-info">Viewing as Admin</span>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="level-right">
+          {% if view_user.username == current_user.username %}
+          <div class="level-item">
+            <a class="button is-primary" href="{{ url_for('space_edit') }}">
+              <span class="icon">
+                <span>✏️</span>
+              </span>
+              <span>Edit</span>
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="content personal-space-content">
+        {{ view_user.note_content | safe }}
+      </div>
+
+      {% if view_user.note_content == "" %}
+      <div class="notification is-info">
+        <p>This space is empty. Click "Edit" to add your thoughts.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if view_user.username == current_user.username %}
+    <div class="box">
+      <h2 class="title is-5">Need Help?</h2>
+      <p class="mb-3">
+        If you need guidance or have questions about using your personal space,
+        our admin team is here to help. Click the button below to request a
+        review.
+      </p>
+      <form method="post" action="{{ url_for('request_guidance') }}">
+        <button class="button is-info" type="submit">
+          <span class="icon">
+            <span>💬</span>
+          </span>
+          <span>Request Guidance from Admin</span>
+        </button>
+      </form>
+    </div>
+    {% endif %} {% if current_user.is_admin %}
+    <div class="box">
+      <h2 class="title is-5">Admin Panel</h2>
+      <p class="mb-3">View any user's personal space:</p>
+      <form method="get" action="{{ url_for('space') }}">
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input
+              class="input"
+              type="text"
+              name="user"
+              placeholder="Enter username"
+              value="{{ request.args.get('user', '') }}"
+            />
+          </div>
+          <div class="control">
+            <button class="button is-warning" type="submit">View</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

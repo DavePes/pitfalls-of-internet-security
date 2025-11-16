@@ -1,0 +1,54 @@
+{% extends 'layout.html' %} {% block title %}Login - Personal Space{% endblock
+%} {% block content %}
+<div class="columns is-centered">
+  <div class="column is-5">
+    <div class="box">
+      <h1 class="title">Welcome Back</h1>
+      <p class="subtitle">Login to access your personal space</p>
+
+      <form method="post" action="{{ url_for('login') }}">
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              name="username"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input
+              class="input"
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary is-fullwidth" type="submit">
+              Login
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <hr />
+
+      <p class="has-text-centered">
+        Don't have an account?
+        <a href="{{ url_for('register') }}">Register here</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

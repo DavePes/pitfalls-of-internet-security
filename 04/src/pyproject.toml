@@ -1,0 +1,13 @@
+[project]
+name = "personal-space"
+version = "0.1.0"
+description = "Personal Space"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.0.0",
+    "flask-sqlalchemy>=3.1.0",
+    "argon2-cffi>=23.1.0",
+    "redis>=5.0.0",
+    "rq>=1.16.0",
+]

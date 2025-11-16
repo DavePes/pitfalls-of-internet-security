@@ -1,0 +1,79 @@
+{% extends 'layout.html' %} {% block title %}Edit Personal Space{% endblock %}
+{% block content %}
+<div class="columns is-centered">
+  <div class="column is-8">
+    <div class="box">
+      <h1 class="title">Edit Your Personal Space</h1>
+      <p class="subtitle">Update your thoughts and reflections</p>
+
+      <form method="post" action="{{ url_for('space_update') }}" id="editForm">
+        <div class="field">
+          <label class="label">Your Note</label>
+          <div class="control">
+            <textarea
+              class="textarea"
+              name="content"
+              rows="15"
+              placeholder="Write your thoughts here... You can use HTML formatting if you'd like."
+            >
+{{ current_user.note_content }}</textarea
+            >
+          </div>
+          <p class="help">
+            Your personal space supports rich text. Feel free to use HTML tags
+            for formatting.
+          </p>
+        </div>
+
+        <div class="field">
+          <label class="label">Security Check</label>
+          <div class="h-captcha" data-sitekey="{{ hcaptcha_sitekey }}"></div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary" type="submit">
+              <span class="icon">
+                <span>💾</span>
+              </span>
+              <span>Save Changes</span>
+            </button>
+          </div>
+          <div class="control">
+            <a class="button is-light" href="{{ url_for('space') }}">
+              Cancel
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="box">
+      <h2 class="title is-5">💡 Tips for Your Personal Space</h2>
+      <div class="content">
+        <ul>
+          <li>
+            Use HTML tags like <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>,
+            <code>&lt;u&gt;</code> for formatting
+          </li>
+          <li>
+            Add lists with <code>&lt;ul&gt;</code> and
+            <code>&lt;li&gt;</code> tags
+          </li>
+          <li>
+            Create headings with <code>&lt;h1&gt;</code>,
+            <code>&lt;h2&gt;</code>, etc.
+          </li>
+          <li>
+            Try our
+            <a href="{{ url_for('meditation') }}">meditation page</a> for
+            relaxation
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+{% endblock %}

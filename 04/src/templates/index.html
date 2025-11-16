@@ -1,0 +1,67 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="hero is-medium">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-1">🧘 Welcome to Personal Space</h1>
+      <p class="subtitle is-4">
+        Your private sanctuary for thoughts and reflections
+      </p>
+      <div class="content mt-5">
+        <p class="is-size-5">
+          Personal Space is a minimalist note-taking app designed for
+          mindfulness and personal growth.
+        </p>
+        <p>
+          Store your thoughts, goals, and reflections in your own personal
+          space.
+        </p>
+      </div>
+      <div class="buttons is-centered mt-6">
+        {% if current_user %}
+        <a class="button is-primary is-large" href="{{ url_for('space') }}">
+          Go to My Space
+        </a>
+        <a class="button is-info is-large" href="{{ url_for('meditation') }}">
+          Try Meditation
+        </a>
+        {% else %}
+        <a class="button is-primary is-large" href="{{ url_for('register') }}">
+          Get Started
+        </a>
+        <a class="button is-light is-large" href="{{ url_for('login') }}">
+          Login
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <div class="box has-text-centered">
+          <span class="icon is-large"> 📝 </span>
+          <h3 class="title is-4 mt-3">Personal Notes</h3>
+          <p>Keep your thoughts organized in one secure place</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box has-text-centered">
+          <span class="icon is-large"> 🧘 </span>
+          <h3 class="title is-4 mt-3">Meditation Tools</h3>
+          <p>Relax with our color wave visualization</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box has-text-centered">
+          <span class="icon is-large"> 🔒 </span>
+          <h3 class="title is-4 mt-3">Secure & Private</h3>
+          <p>Your personal space is protected and private</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

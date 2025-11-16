@@ -1,0 +1,76 @@
+{% extends 'layout.html' %} {% block title %}Meditation - Personal Space{%
+endblock %} {% block content %}
+<div class="columns is-centered">
+  <div class="column is-10">
+    <div class="box has-text-centered">
+      <h1 class="title">🧘 Meditation & Relaxation</h1>
+      <p class="subtitle">
+        Find your inner peace with color wave visualization
+      </p>
+    </div>
+
+    <div class="box">
+      <div class="columns">
+        <div class="column is-8">
+          <canvas id="meditationCanvas" width="800" height="400"></canvas>
+        </div>
+        <div class="column is-4">
+          <div class="box">
+            <h2 class="title is-5">Controls</h2>
+
+            <div class="field">
+              <label class="label">Wave Expression</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  id="visualExpr"
+                  value="0.5"
+                  placeholder="e.g., 0.5, Math.sin(0.3), etc."
+                />
+              </div>
+              <p class="help">
+                Enter a wave speed value (0-1) or mathematical expression
+              </p>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <button class="button is-primary is-fullwidth" id="startButton">
+                  <span class="icon">
+                    <span>🌊</span>
+                  </span>
+                  <span>Start Meditation</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <button class="button is-light is-fullwidth" id="stopButton">
+                  <span>Stop</span>
+                </button>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="content is-small">
+              <p><strong>Instructions:</strong></p>
+              <ul>
+                <li>Enter a wave speed (0.1 to 1.0)</li>
+                <li>Try expressions like <code>Math.random()</code></li>
+                <li>Click "Start Meditation" to begin</li>
+                <li>Focus on the flowing colors</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='meditation.js') }}"></script>
+<script src="{{ url_for('static', filename='register_meditation.js') }}"></script>
+{% endblock %}
