@@ -1,0 +1,124 @@
+{% extends "layout.html" %} {% block title %}Import - YAML to JSON Converter{%
+endblock %} {% block content %}
+<div class="columns is-centered">
+    <div class="column is-8">
+        <div class="box">
+            <h1 class="title">Import YAML Conversions</h1>
+            <p class="subtitle">Upload a compressed YAML file to import</p>
+
+            <div class="notification is-info is-light">
+                <p>
+                    <strong>File Format:</strong> Please upload YAML files
+                    compressed with LZMA (.yaml.xz extension)
+                </p>
+                <p class="mt-2">
+                    This feature allows you to import YAML data from compressed
+                    archives for conversion.
+                </p>
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for('import_conversions') }}"
+                enctype="multipart/form-data"
+            >
+                <div class="field">
+                    <label class="label">Select YAML.XZ File</label>
+                    <div class="control">
+                        <div class="file has-name is-fullwidth">
+                            <label class="file-label">
+                                <input
+                                    class="file-input"
+                                    type="file"
+                                    name="file"
+                                    accept=".xz,.yaml.xz"
+                                    required
+                                    id="fileInput"
+                                />
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i>📁</i>
+                                    </span>
+                                    <span class="file-label">
+                                        Choose a file…
+                                    </span>
+                                </span>
+                                <span class="file-name" id="fileName">
+                                    No file selected
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="help">
+                        Upload a .yaml.xz file (YAML compressed with LZMA)
+                    </p>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">
+                            Import File
+                        </button>
+                    </div>
+                    <div class="control">
+                        <a
+                            href="{{ url_for('converter') }}"
+                            class="button is-light"
+                        >
+                            Back to Converter
+                        </a>
+                    </div>
+                </div>
+            </form>
+
+            <hr />
+
+            <div class="content">
+                <h2 class="title is-5">How to Create a YAML.XZ File</h2>
+                <p>
+                    You can create a compressed YAML file using the following
+                    command:
+                </p>
+                <pre
+                    style="
+                        background-color: #f5f5f5;
+                        padding: 10px;
+                        border-radius: 4px;
+                    "
+                >
+xz -z your_file.yaml</pre
+                >
+                <p class="mt-2">Or in Python:</p>
+                <pre
+                    style="
+                        background-color: #f5f5f5;
+                        padding: 10px;
+                        border-radius: 4px;
+                    "
+                >
+import lzma
+
+with open('data.yaml', 'rb') as f:
+    data = f.read()
+
+with open('data.yaml.xz', 'wb') as f:
+    f.write(lzma.compress(data, preset=9))</pre
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById("fileInput");
+    const fileName = document.getElementById("fileName");
+
+    fileInput.addEventListener("change", function () {
+        if (this.files && this.files[0]) {
+            fileName.textContent = this.files[0].name;
+        } else {
+            fileName.textContent = "No file selected";
+        }
+    });
+</script>
+{% endblock %}

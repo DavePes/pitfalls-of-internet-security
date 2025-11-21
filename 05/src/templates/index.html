@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}Home - YAML to JSON Converter{% endblock %}
+
+{% block content %}
+<div class="hero is-info">
+  <div class="hero-body">
+    <p class="title">
+      YAML to JSON Converter
+    </p>
+  </div>
+</div>
+
+<div class="content mt-5">
+  <h2 class="title is-3">Welcome to the YAML to JSON Converter</h2>
+  <p>
+    This is a simple yet powerful tool to</p> convert YAML formatted data into JSON format.
+    Perfect for developers working with configuration files, data serialization, and more.
+  </p>
+
+  <div class="buttons mt-5">
+    {% if current_user %}
+    <a href="{{ url_for('converter') }}" class="button is-primary is-large">
+      Start Converting
+    </a>
+    {% else %}
+    <a href="{{ url_for('register') }}" class="button is-primary is-large">
+      Get Started
+    </a>
+    <a href="{{ url_for('login') }}" class="button is-link is-large">
+      Login
+    </a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

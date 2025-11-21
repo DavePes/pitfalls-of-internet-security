@@ -1,0 +1,29 @@
+services:
+  web:
+    build:
+      context: ./src
+      dockerfile: Containerfile
+    domainname: web
+    env_file: .env
+    environment:
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - FLAG=${FLAG:-pitfalls{fake_flag_for_testing}}
+    restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 172.24.5.2
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512M
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      isolate: "false"
+    ipam:
+      config:
+        - subnet: 172.24.5.0/24
+          gateway: 172.24.5.1

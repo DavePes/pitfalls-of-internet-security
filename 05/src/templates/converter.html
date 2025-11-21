@@ -1,0 +1,110 @@
+{% extends "layout.html" %} {% block title %}Converter - YAML to JSON
+Converter{% endblock %} {% block content %}
+<div class="columns">
+    <div class="column is-6">
+        <div class="box">
+            <h1 class="title">Convert YAML to JSON</h1>
+
+            <form method="POST" action="{{ url_for('convert') }}">
+                <div class="field">
+                    <label class="label">YAML Input</label>
+                    <div class="control">
+                        <textarea
+                            class="textarea"
+                            name="yaml_input"
+                            placeholder="Enter your YAML here..."
+                            rows="15"
+                            required
+                        ></textarea>
+                    </div>
+                    <p class="help">
+                        Paste your YAML content to convert it to JSON format
+                    </p>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">
+                            Convert to JSON
+                        </button>
+                    </div>
+                    <div class="control">
+                        <a
+                            href="{{ url_for('history') }}"
+                            class="button is-light"
+                        >
+                            View History
+                        </a>
+                    </div>
+                </div>
+            </form>
+
+            <hr />
+
+            <div class="notification is-info is-light">
+                <p>
+                    <strong>Import Conversions:</strong> Upload compressed YAML
+                    files (.yaml.xz) to import conversions
+                </p>
+                <a
+                    href="{{ url_for('import_conversions') }}"
+                    class="button is-info mt-2"
+                >
+                    Go to Import
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-6">
+        <div class="box">
+            <h2 class="title is-4">Recent Conversions</h2>
+
+            {% if conversions %} {% for conversion in conversions[:5] %}
+            <div class="box">
+                <p class="subtitle is-6">
+                    {{ conversion.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                </p>
+                <div class="content">
+                    <p><strong>YAML:</strong></p>
+                    <pre
+                        style="
+                            max-height: 100px;
+                            overflow-y: auto;
+                            background-color: #f5f5f5;
+                            padding: 10px;
+                            border-radius: 4px;
+                        "
+                    >
+{{ conversion.yaml_input }}</pre
+                    >
+                    <p><strong>JSON:</strong></p>
+                    <pre
+                        style="
+                            max-height: 100px;
+                            overflow-y: auto;
+                            background-color: #f5f5f5;
+                            padding: 10px;
+                            border-radius: 4px;
+                        "
+                    >
+{{ conversion.json_output }}</pre
+                    >
+                </div>
+            </div>
+            {% endfor %} {% if conversions|length > 5 %}
+            <a
+                href="{{ url_for('history') }}"
+                class="button is-light is-fullwidth"
+            >
+                View All {{ conversions|length }} Conversions
+            </a>
+            {% endif %} {% else %}
+            <div class="notification is-light">
+                <p>No conversions yet. Start by converting some YAML!</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

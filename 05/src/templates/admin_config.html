@@ -1,0 +1,71 @@
+{% extends "layout.html" %} {% block title %}Admin Config - YAML to JSON
+Converter{% endblock %} {% block content %}
+<div class="columns is-centered">
+    <div class="column is-8">
+        <div class="box">
+            <h1 class="title">Admin Configuration</h1>
+            <p class="subtitle">Manage parser settings</p>
+
+            <form method="POST" action="{{ url_for('admin_config') }}">
+                <div class="field">
+                    <label class="label">Parser Mode</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name="safe_mode">
+                                <option
+                                    value="true"
+                                    {%
+                                    if
+                                    safe_mode
+                                    %}selected{%
+                                    endif
+                                    %}
+                                >
+                                    safe_load
+                                </option>
+                                <option
+                                    value="false"
+                                    {%
+                                    if
+                                    not
+                                    safe_mode
+                                    %}selected{%
+                                    endif
+                                    %}
+                                >
+                                    load
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification is-info is-light mt-4">
+                    <p>
+                        <strong>Current Mode:</strong>
+                        <span class="tag">
+                            {{ 'safe_load' if safe_mode else 'load' }}
+                        </span>
+                    </p>
+                </div>
+
+                <div class="field is-grouped mt-4">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">
+                            Update Configuration
+                        </button>
+                    </div>
+                    <div class="control">
+                        <a
+                            href="{{ url_for('converter') }}"
+                            class="button is-light"
+                        >
+                            Back to Converter
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
